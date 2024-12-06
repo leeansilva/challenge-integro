@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 100);  
             $table->string('direccion', 100)->nullable();
             $table->char('dni', 9)->unique();
             $table->char('condicion_iva', 1)->check('condicion_iva IN (\'A\', \'B\', \'C\')');
