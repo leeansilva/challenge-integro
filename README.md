@@ -11,8 +11,8 @@
 
 1. Clonar el repositorio:
    ```bash
-   git clone <repositorio>
-   cd laravel-backend
+   git clone https://github.com/leeansilva/challenge-integro.git
+   cd challenge-integro
 
 2. Configurar **.env**:
 	 ```bash
