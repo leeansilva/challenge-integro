@@ -33,9 +33,9 @@ export function provideClientContext() {
     async editClient(id, updatedClientData) {
       try {
         const updatedClient = await updateClient(id, updatedClientData)
-        const index = state.clients.findIndex(client => client.id === id) // Usamos state
+        const index = state.clients.findIndex(client => client.id === id)
         if (index !== -1) {
-          state.clients[index] = updatedClient; // Usamos state
+          state.clients[index] = updatedClient; 
         }
       } catch (error) {
         console.error("Failed to update client", error)

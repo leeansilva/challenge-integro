@@ -1,5 +1,5 @@
 <template>
-  <q-dialog :model-value="open" @update:model-value="updateOpen">
+  <q-dialog :model-value="open">
     <q-card>
       <q-card-section>
         <div class="text-h6">{{ isEdit ? 'Editar Cliente' : 'Agregar Cliente' }}</div>
@@ -29,32 +29,57 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch, reactive } from 'vue'
 import { useClientContextConsumer } from '../context/ClientContext';
 
 export default {
-  props: { open: Boolean, client: Object },
+  props: {
+    open: Boolean,
+    client: Object,
+    isEdit: Boolean
+  },
+  emits: ['close'],
   setup(props, { emit }) {
-    const { addClient } = useClientContextConsumer();
-    const isEdit = !!props.client
-    const form = ref({ ...props.client })
+    const { addClient, editClient } = useClientContextConsumer();
+    
+    const form = reactive({
+      id: '',
+      nombre: '',
+      dni: '',
+      condicion_iva: '',
+      direccion: ''
+    });
 
-    // Opciones para el select de Condición IVA
     const condicionIvaOptions = ['A', 'B', 'C'];
 
+    watch(() => props.client, (newClient) => {
+      if (newClient && newClient.id) { 
+        form.id = newClient.id || ''; 
+        form.nombre = newClient.nombre || '';
+        form.dni = newClient.dni || '';
+        form.condicion_iva = newClient.condicion_iva || '';
+        form.direccion = newClient.direccion || '';
+      }
+    }, { immediate: true });
+
     const save = () => {
-      if (isEdit) editClient(props.clientIndex, form.value)
-      else addClient(form.value)
-      close()
-    }
+      if (form) {
+        const formData = { ...form };  
 
-    const close = () => emit('close')
+        if (props.isEdit) {
+          console.log('Editando cliente:', formData); 
+          editClient(form.id, formData); 
+        } else {
+          console.log('Agregando cliente nuevo:', formData);
+          addClient(formData);
+        }
+      }
+      close();  
+    };
 
-    const updateOpen = (value) => {
-      emit('update:open', value)
-    }
+    const close = () => emit('close'); 
 
-    return { form, isEdit, save, close, updateOpen, condicionIvaOptions }
+    return { form, save, close, condicionIvaOptions };
   }
 }
 </script>

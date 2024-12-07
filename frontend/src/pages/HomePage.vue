@@ -1,8 +1,8 @@
 <template>
   <MainLayout>
     <Header @openForm="showForm = true" />
-    <Table @editClient="handleEditClient" />
-    <ClientForm v-if="showForm" :open="showForm" @close="showForm = false" />
+    <Table />
+    <ClientForm v-if="showForm" :open="showForm" @close="showForm = false" :isEdit=false />
   </MainLayout>
 </template>
 
@@ -16,7 +16,5 @@ import MainLayout from '../layouts/MainLayout.vue';
 
 const showForm = ref(false);
 
-const handleEditClient = () => {
-  showForm.value = true; 
-};
+
 </script>
