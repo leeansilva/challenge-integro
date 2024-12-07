@@ -1,5 +1,7 @@
-<script setup>
-// Si necesitas importar algo, puedes hacerlo aquí.
+<script>
+export default {
+  name: 'MainLayout'
+};
 </script>
 
 <template>

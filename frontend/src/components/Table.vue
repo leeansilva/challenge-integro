@@ -11,32 +11,47 @@
   </q-table>
 </template>
 
+
 <script>
-import { useClientContext } from '../context/ClientContext'
+import { useClientContextConsumer } from '../context/ClientContext'
+import { onMounted, watch, nextTick } from 'vue'
 
 export default {
   setup() {
-    const { clients, deleteClient } = useClientContext()
+    const { clients, loadClients, deleteClient } = useClientContextConsumer();
 
-    // Definir la función onEdit
+    onMounted(async () => {
+      await loadClients();
+      console.log(clients,"table.vue")
+    });
+
     const onEdit = (client) => {
-      // Lógica para editar un cliente (puedes abrir un formulario o hacer cualquier acción)
       console.log('Edit client', client)
     }
 
     const columns = [
-      { name: 'name', label: 'Nombre', field: 'name', align: 'left' },
+      { name: 'name', label: 'Nombre', field: 'nombre', align: 'left' },
       { name: 'dni', label: 'DNI', field: 'dni', align: 'left' },
-      { name: 'address', label: 'Dirección', field: 'address', align: 'left' },
+      { name: 'iva condition', label: 'Condición IVA', field: 'condicion_iva', align: 'left' },
+      { name: 'address', label: 'Dirección', field: 'direccion', align: 'left' },
       { name: 'actions', label: 'Acciones', align: 'center' }
     ]
 
-    const onDelete = (client) => {
-      const index = clients.indexOf(client)
-      if (index > -1) deleteClient(index)
+    const onDelete = async (client) => {
+      try {
+        await deleteClient(client.id)
+
+        const index = clients.findIndex(item => item.id === client.id)
+        if (index > -1) {
+          clients.splice(index, 1)
+        }
+      } catch (error) {
+        console.error('Error deleting client:', error)
+      }
     }
 
     return { clients, columns, onEdit, onDelete }
   }
 }
+
 </script>

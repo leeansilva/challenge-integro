@@ -1,17 +1,20 @@
-<script setup>
-import Header from './components/Header.vue';
-import Table from './components/Table.vue';
-import ClientForm from './components/ClientForm.vue';
-import MainLayout from './layouts/MainLayout.vue';
+<script>
 import { provideClientContext } from './context/ClientContext';
+import MainLayout from './layouts/MainLayout.vue';
 
-provideClientContext();
+export default {
+  components: {
+    MainLayout
+  },
+  setup() {
+    provideClientContext();
+  }
+}
+
 </script>
 
 <template>
-  
   <MainLayout>
-    <!-- <Header /> -->
     <router-view />
   </MainLayout>
 </template>

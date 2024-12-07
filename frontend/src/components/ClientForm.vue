@@ -6,9 +6,18 @@
       </q-card-section>
 
       <q-card-section>
-        <q-input v-model="form.name" label="Nombre" />
+        <q-input v-model="form.nombre" label="Nombre" />
         <q-input v-model="form.dni" label="DNI" />
-        <q-input v-model="form.address" label="Dirección" />
+        
+        <q-select
+          v-model="form.condicion_iva"
+          :options="condicionIvaOptions"
+          label="Condición IVA"
+          emit-value
+          map-options
+        />
+        
+        <q-input v-model="form.direccion" label="Dirección" />
       </q-card-section>
 
       <q-card-actions align="right">
@@ -20,15 +29,18 @@
 </template>
 
 <script>
-import { useClientContext } from '../context/ClientContext'
 import { ref } from 'vue'
+import { useClientContextConsumer } from '../context/ClientContext';
 
 export default {
   props: { open: Boolean, client: Object },
   setup(props, { emit }) {
-    const { addClient, editClient } = useClientContext()
+    const { addClient } = useClientContextConsumer();
     const isEdit = !!props.client
     const form = ref({ ...props.client })
+
+    // Opciones para el select de Condición IVA
+    const condicionIvaOptions = ['A', 'B', 'C'];
 
     const save = () => {
       if (isEdit) editClient(props.clientIndex, form.value)
@@ -42,7 +54,7 @@ export default {
       emit('update:open', value)
     }
 
-    return { form, isEdit, save, close, updateOpen }
+    return { form, isEdit, save, close, updateOpen, condicionIvaOptions }
   }
 }
 </script>
