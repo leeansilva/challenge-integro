@@ -3,7 +3,6 @@
     :rows="clients"
     :columns="columns"
     row-key="dni"
-    @row-click="onEdit"
   >
     <template v-slot:body-cell-actions="props">
       <q-btn flat color="negative" icon="delete" @click="onDelete(props.row)" />
