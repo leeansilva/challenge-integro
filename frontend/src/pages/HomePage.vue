@@ -1,21 +1,22 @@
 <template>
-    <main-layout>
-      <Header @openForm="showForm = true" />
-      <Table @editClient="editClient" />
-      <ClientForm v-if="showForm" :open="showForm" @close="showForm = false" />
-    </main-layout>
-  </template>
-  
-  <script>
-  import { provideClientContext } from '../context/ClientContext'
-  
-  export default {
-    setup() {
-      provideClientContext()
-      const showForm = ref(false)
-  
-      return { showForm }
-    }
-  }
-  </script>
-  
+  <MainLayout>
+    <Header @openForm="showForm = true" />
+    <Table @editClient="handleEditClient" />
+    <ClientForm v-if="showForm" :open="showForm" @close="showForm = false" />
+  </MainLayout>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import Header from '../components/Header.vue';
+import Table from '../components/Table.vue';
+import ClientForm from '../components/ClientForm.vue';
+import MainLayout from '../layouts/MainLayout.vue';
+
+
+const showForm = ref(false);
+
+const handleEditClient = () => {
+  showForm.value = true; 
+};
+</script>
