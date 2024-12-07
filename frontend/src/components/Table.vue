@@ -14,7 +14,7 @@
 
 <script>
 import { useClientContextConsumer } from '../context/ClientContext'
-import { onMounted, watch, nextTick } from 'vue'
+import { onMounted } from 'vue'
 
 export default {
   setup() {
@@ -34,7 +34,7 @@ export default {
       { name: 'dni', label: 'DNI', field: 'dni', align: 'left' },
       { name: 'iva condition', label: 'Condición IVA', field: 'condicion_iva', align: 'left' },
       { name: 'address', label: 'Dirección', field: 'direccion', align: 'left' },
-      { name: 'actions', label: 'Acciones', align: 'center' }
+      { name: 'actions', label: 'Acciones', align: 'left' }
     ]
 
     const onDelete = async (client) => {
