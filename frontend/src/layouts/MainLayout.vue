@@ -12,21 +12,24 @@
 
 <style scoped>
 .main-layout {
-  min-height: 100vh;
+  min-height: 97svh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem; /* Márgenes amplios */
+  padding: 0 2rem; /* Márgenes amplios */
   background-color: #f9f9f9; /* Fondo claro */
 }
 
 .content-container {
-  max-width: 1200px; /* Limitar el ancho del contenido */
+  max-width: 1200px; 
   width: 100%;
-  padding: 2rem; /* Relleno adicional para el contenido */
-  background-color: white; /* Fondo blanco para el área de contenido */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  padding: 10px 2rem; 
+  background-color: f9f9f9;
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @media (max-width: 768px) {

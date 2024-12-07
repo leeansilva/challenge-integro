@@ -9,9 +9,9 @@ provideClientContext();
 </script>
 
 <template>
-  <Header />
-
+  
   <MainLayout>
+    <!-- <Header /> -->
     <router-view />
   </MainLayout>
 </template>
