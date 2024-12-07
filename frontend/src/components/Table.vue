@@ -38,8 +38,8 @@ export default {
     });
 
     const onEdit = (client) => {
-      selectedClient.value = clients.find(c => c.id === client.id);  // Ajusta según cómo se llame el id en tu cliente
-      openModal.value = true;  // Abre el modal
+      selectedClient.value = clients.find(c => c.id === client.id); 
+      openModal.value = true; 
     };
 
     const columns = [
