@@ -30,7 +30,7 @@
 
 <script>
 import { watch, reactive } from 'vue'
-import { useClient } from '../composables/useClient';
+import { useClient } from '../../../composables/useClient';
 
 export default {
   props: {

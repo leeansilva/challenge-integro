@@ -22,8 +22,9 @@
 import { ref, onMounted, computed } from 'vue'
 
 import ClientForm from './ClientForm.vue'  
-import { useClient } from "../composables/useClient";
-import { useClientStore } from '../stores/clientStore';
+import { useClientStore } from '../../../stores/clientStore';
+import { useClient } from '../../../composables/useClient';
+
 
 
 export default {

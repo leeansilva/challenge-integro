@@ -17,6 +17,7 @@
   <script>
   import { useRoute } from 'vue-router'
 import { useClientStore } from '../stores/clientStore';
+import { computed } from 'vue';
   
   export default {
     setup() {
