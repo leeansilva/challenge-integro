@@ -10,7 +10,6 @@
     </template>
   </q-table>
 
-  <!-- Modal de cliente -->
   <ClientForm 
     :open="openModal" 
     :client="selectedClient || null" 
@@ -20,16 +19,22 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import { useClientContextConsumer } from '../context/ClientContext'
+import { ref, onMounted, computed } from 'vue'
+
 import ClientForm from './ClientForm.vue'  
+import { useClient } from "../composables/useClient";
+import { useClientStore } from '../stores/clientStore';
+
 
 export default {
   components: {
     ClientForm
   },
   setup() {
-    const { clients, loadClients, deleteClient } = useClientContextConsumer();
+    const { loadClients, deleteClient } = useClient();
+    const clientStore = useClientStore();
+    const clients = computed(() => clientStore.clients);
+
     const openModal = ref(false); 
     const selectedClient = ref(null); 
 
@@ -37,8 +42,11 @@ export default {
       await loadClients();
     });
 
+    console.log(clients, "proxy array asctual");
+
+
     const onEdit = (client) => {
-      selectedClient.value = clients.find(c => c.id === client.id); 
+      selectedClient.value = clients.value?.find(c => c.id === client.id); 
       openModal.value = true; 
     };
 
@@ -53,7 +61,7 @@ export default {
     const onDelete = async (client) => {
       try {
         await deleteClient(client.id);
-        const index = clients.findIndex(item => item.id === client.id);
+        const index = clients.value?.findIndex(item => item.id === client.id);
         if (index > -1) {
           clients.splice(index, 1);
         }

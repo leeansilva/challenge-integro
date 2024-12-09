@@ -16,14 +16,15 @@
   
   <script>
   import { useRoute } from 'vue-router'
-  import { useClientContext } from '../context/ClientContext'
+import { useClientStore } from '../stores/clientStore';
   
   export default {
     setup() {
-      const route = useRoute()
-      const { clients } = useClientContext()
+      const route = useRoute();
+      const clientStore = useClientStore();
+      const clients = computed(() => clientStore.clients);
       const id = route.params.id
-      const client = clients.find(client => client.dni === id)
+      const client = clients.value.find(client => client.id === id)
   
       return { id, client }
     }

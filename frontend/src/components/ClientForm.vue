@@ -1,6 +1,6 @@
 <template>
-  <q-dialog :model-value="open">
-    <q-card>
+  <q-dialog :model-value="open" >
+    <q-card style="width: 300px;">
       <q-card-section>
         <div class="text-h6">{{ isEdit ? 'Editar Cliente' : 'Agregar Cliente' }}</div>
       </q-card-section>
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import { ref, watch, reactive } from 'vue'
-import { useClientContextConsumer } from '../context/ClientContext';
+import { watch, reactive } from 'vue'
+import { useClient } from '../composables/useClient';
 
 export default {
   props: {
@@ -40,7 +40,7 @@ export default {
   },
   emits: ['close'],
   setup(props, { emit }) {
-    const { addClient, editClient } = useClientContextConsumer();
+    const { addClient, updateClient } = useClient();
     
     const form = reactive({
       id: '',
@@ -68,7 +68,7 @@ export default {
 
         if (props.isEdit) {
           console.log('Editando cliente:', formData); 
-          editClient(form.id, formData); 
+          updateClient(form.id, formData); 
         } else {
           console.log('Agregando cliente nuevo:', formData);
           addClient(formData);

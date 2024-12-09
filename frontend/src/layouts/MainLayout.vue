@@ -19,7 +19,6 @@ export default {
   justify-content: center;
   align-items: flex-start;
   padding: 0 2rem; /* Márgenes amplios */
-  background-color: #f9f9f9; /* Fondo claro */
 }
 
 .content-container {
@@ -28,7 +27,7 @@ export default {
   padding: 10px 2rem; 
   background-color: f9f9f9;
   border-radius: 8px; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
