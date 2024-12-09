@@ -1,8 +1,7 @@
 <template>
   <MainLayout>
     <ClientsOverview />
-
-    <Header @openForm="showForm = false" title="Gestión de facturas" />
+    <InvoicesOverview />
   </MainLayout>
 </template>
 
@@ -10,6 +9,7 @@
 import { ref } from 'vue';
 import Header from '../components/Header.vue';
 import ClientsOverview from '../modules/clients/components/ClientsOverview.vue';
+import InvoicesOverview from '../modules/invoices/components/InvoicesOverview.vue';
 
 const showForm = ref(false);
 

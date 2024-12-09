@@ -1,7 +1,9 @@
 <template>
+    <div style="margin-bottom: 15px;">
     <Header @openForm="showForm = true" title="Gestión de clientes" />
     <ClientsTable />
     <ClientForm v-if="showForm" :open="showForm" @close="showForm = false" :isEdit=false />
+    </div>
 </template>
 
 <script setup>
