@@ -1,9 +1,11 @@
 <template>
     <Header @openForm="showForm = true" title="Gestión de facturas" />
-</template>
+    <InvoicesTable />
+</template> 
 
 <script setup>
 import Header from '../../../components/Header.vue';
+import InvoicesTable from './InvoicesTable.vue';
 
 
 </script>
