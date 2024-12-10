@@ -115,6 +115,7 @@
           return [
             ...baseColumns,
             { name: 'nro_factura', label: 'Número de Factura', field: 'nro_factura' },
+            { name: 'dni_cliente', label: 'DNI', field: row => row.cliente.dni },
             { name: 'importe', label: 'Importe', field: 'importe' },
           ];
         }
