@@ -3,6 +3,8 @@ import { ref } from "vue";
 
 export const useClientStore = defineStore("client", () => {
   const clients = ref([]);
+  const loading = ref(false);
+  const error = ref(null);
 
   const setClients = (newClients) => {
     clients.value = newClients;
@@ -23,11 +25,23 @@ export const useClientStore = defineStore("client", () => {
     clients.value = clients.value.filter((client) => client.id !== id);
   };
 
+  const setLoading = (value) => {
+    loading.value = value;
+  };
+
+  const setError = (errorMessage) => {
+    error.value = errorMessage;
+  };
+
   return {
     clients,
+    loading,
+    error,
     setClients,
     addClient,
     updateClient,
     deleteClient,
+    setLoading,
+    setError,
   };
 });
