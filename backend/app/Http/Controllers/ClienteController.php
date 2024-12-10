@@ -21,6 +21,7 @@ class ClienteController extends Controller
             'nombre.max' => 'El campo nombre no puede exceder los 100 caracteres.',
             'dni.required' => 'El campo DNI es obligatorio.',
             'dni.min' => 'El campo DNI debe tener minimo 9 caracteres.',
+            'dni.numeric' => 'El campo DNI debe ser un número.',
             'dni.unique' => 'El DNI ya está registrado.',
             'condicion_iva.required' => 'El campo condición IVA es obligatorio.',
             'condicion_iva.in' => 'El campo condición IVA debe ser uno de los siguientes valores: A, B, C.',
@@ -30,7 +31,7 @@ class ClienteController extends Controller
             $request->validate([
                 'nombre' => 'required|string|max:100',
                 'direccion' => 'nullable|string|max:100',
-                'dni' => 'required|min:7|unique:clientes',
+                'dni' => 'required|min:7|numeric|unique:clientes',
                 'condicion_iva' => 'required|in:A,B,C',
             ], $messages);
     
@@ -77,6 +78,7 @@ class ClienteController extends Controller
                 'nombre.max' => 'El campo nombre no puede exceder los 100 caracteres.',
                 'dni.required' => 'El campo DNI es obligatorio.',
                 'dni.min' => 'El campo DNI debe tener minimo 7 caracteres.',
+                'dni.numeric' => 'El campo DNI debe ser un número.',
                 'dni.unique' => 'El DNI ya está registrado.',
                 'condicion_iva.required' => 'El campo condición IVA es obligatorio.',
                 'condicion_iva.in' => 'El campo condición IVA debe ser uno de los siguientes valores: A, B, C.',
@@ -85,7 +87,7 @@ class ClienteController extends Controller
             $request->validate([
                 'nombre' => 'required|string|max:100',
                 'direccion' => 'nullable|string|max:100',
-                'dni' => 'required|min:7|unique:clientes,dni,' . $id,
+                'dni' => 'required|min:7|numeric|unique:clientes,dni,' . $id,
                 'condicion_iva' => 'required|in:A,B,C',
             ], $messages);
     

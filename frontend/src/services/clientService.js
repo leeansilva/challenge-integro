@@ -1,7 +1,7 @@
-// src/services/clientService.js
 import axios from 'axios'
 
-const API_URL = 'http://127.0.0.1:8001/api/clientes'
+const API_URL = import.meta.env.VITE_API_URL_CLIENTES
+
 
 export async function fetchClients() {
   try {

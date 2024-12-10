@@ -17,6 +17,7 @@ class FacturaController extends Controller
     {
         $messages = [
             'nro_factura.required' => 'El campo número de factura es obligatorio.',
+            'nro_factura.numeric' => 'El campo número de factura debe ser un número.',
             'nro_factura.unique' => 'El número de factura ya está registrado.',
             'importe.required' => 'El campo importe es obligatorio.',
             'importe.numeric' => 'El campo importe debe ser un número.',
@@ -27,7 +28,7 @@ class FacturaController extends Controller
     
         try {
             $request->validate([
-                'nro_factura' => 'required|unique:facturas',
+                'nro_factura' => 'required|numeric|unique:facturas',
                 'importe' => 'required|numeric|min:0',
                 'id_cliente' => 'required|exists:clientes,id',
             ], $messages);
@@ -72,6 +73,7 @@ class FacturaController extends Controller
             $messages = [
                 'nro_factura.required' => 'El campo número de factura es obligatorio.',
                 'nro_factura.unique' => 'El número de factura ya está registrado.',
+                'nro_factura.numeric' => 'El campo número de factura debe ser un número.',
                 'importe.required' => 'El campo importe es obligatorio.',
                 'importe.numeric' => 'El campo importe debe ser un número.',
                 'importe.min' => 'El importe debe ser mayor a 0.',
@@ -80,7 +82,7 @@ class FacturaController extends Controller
             ];
     
             $request->validate([
-                'nro_factura' => 'required|unique:facturas,nro_factura,' . $id,
+                'nro_factura' => 'required|unique|numeric:facturas,nro_factura,' . $id,
                 'importe' => 'required|numeric|min:0',
                 'id_cliente' => 'required|exists:clientes,id',
             ], $messages);
