@@ -18,6 +18,7 @@ return new class extends Migration
             $table->char('dni', 9)->unique();
             $table->char('condicion_iva', 1)->check('condicion_iva IN (\'A\', \'B\', \'C\')');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

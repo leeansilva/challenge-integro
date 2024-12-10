@@ -108,24 +108,26 @@ class ClienteController extends Controller
     
 
     public function destroy($id)
-    {
-        try {
-            $cliente = Cliente::find($id);
-    
-            if (!$cliente) {
-                return response()->json(['message' => 'Cliente no encontrado'], 404);
-            }
-    
-            $cliente->delete();
-    
-            return response()->json(['message' => 'Cliente eliminado satisfactoriamente.'], 200);
-    
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Hubo un error al procesar la solicitud',
-                'error' => $e->getMessage()
-            ], 500);
+{
+    try {
+        $cliente = Cliente::find($id);
+
+        if (!$cliente) {
+            return response()->json(['message' => 'Cliente no encontrado'], 404);
         }
+
+        // Utiliza el soft delete
+        $cliente->delete();
+
+        return response()->json(['message' => 'Cliente eliminado satisfactoriamente.'], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Hubo un error al procesar la solicitud',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
+
     
 }

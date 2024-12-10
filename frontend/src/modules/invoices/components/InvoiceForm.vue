@@ -1,5 +1,5 @@
 <template>
-  <q-dialog :model-value="open">
+  <q-dialog :model-value="open" persistent>
     <q-card style="width: 300px;">
       <q-card-section>
         <div class="text-h6">Agregar Factura</div>

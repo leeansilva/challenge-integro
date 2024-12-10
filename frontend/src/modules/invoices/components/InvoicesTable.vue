@@ -1,22 +1,34 @@
 <template>
-    <q-table
+    <SkeletonsTable v-if="facturaStore.loading" />
+    
+    <SearchBar
+      v-else
+      :items="invoices"
+      itemType="facturas"
+      class="q-mb-md"
+      :actions="{ delete: false, edit: false, add: false }" 
+    />
+    <!-- <q-table
+      v-else
       :rows="invoices"
       :columns="columns"
       row-key="nro_factura"
     >
-      <template v-slot:body-cell-actions="props">
-        <q-btn flat color="negative" icon="delete" @click="onDelete(props.row)" />
-      </template>
-    </q-table>
+    </q-table> -->
   </template>
   
   <script>
 import { ref, onMounted, computed } from 'vue';
 import { useFactura } from '../../../composables/useFactura';
 import { useFacturaStore } from '../../../stores/facturaStore';
+import SkeletonsTable from '../../../components/SkeletonsTable.vue';
+import SearchBar from '../../../components/SearchBar.vue';
   
   export default {
-    components: {},
+    components: {
+      SkeletonsTable,
+      SearchBar
+    },
     setup() {
       const { loadFacturas, deleteFactura } = useFactura();
 
@@ -56,7 +68,8 @@ import { useFacturaStore } from '../../../stores/facturaStore';
         onDelete,
         openModal,
         selectedInvoice,
-        closeModal
+        closeModal,
+        facturaStore
       };
     }
   };

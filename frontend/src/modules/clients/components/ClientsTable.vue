@@ -1,15 +1,16 @@
 <template>
-  <q-table
-    :rows="clients"
-    :columns="columns"
-    row-key="dni"
-  >
-    <template v-slot:body-cell-actions="props">
-      <q-btn flat color="negative" icon="delete" @click="onDelete(props.row)" />
-      <q-btn flat color="primary" icon="edit" @click="onEdit(props.row)" />
-      <q-btn flat color="primary" icon="add" @click="onAddInvoice(props.row)" />
-    </template>
-  </q-table>
+  <SkeletonsTable v-if="clientStore.loading" />
+
+  <SearchBar 
+    v-else
+    :items="clients"
+    itemType="clientes"
+    class="q-mb-md"
+    :actions="{ delete: true, edit: true, add: true }" 
+    :onDelete="onDelete"
+    :onEdit="onEdit"
+    :onAddInvoice="onAddInvoice"
+  />
 
   <ClientForm 
     :open="openModal" 
@@ -25,19 +26,21 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue';
 
-import ClientForm from './ClientForm.vue'  
+import ClientForm from './ClientForm.vue';  
 import { useClientStore } from '../../../stores/clientStore';
 import { useClient } from '../../../composables/useClient';
 import InvoiceForm from '../../invoices/components/InvoiceForm.vue';
-
-
+import SkeletonsTable from '../../../components/SkeletonsTable.vue';
+import SearchBar from '../../../components/SearchBar.vue';
 
 export default {
   components: {
     ClientForm,
-    InvoiceForm
+    InvoiceForm,
+    SkeletonsTable,
+    SearchBar,
   },
   setup() {
     const { loadClients, deleteClient } = useClient();
@@ -49,20 +52,12 @@ export default {
     const selectedClient = ref(null); 
     const isEdit = ref(false);
 
-    const columns = [
-      { name: 'name', label: 'Nombre', field: 'nombre', align: 'left' },
-      { name: 'dni', label: 'DNI', field: 'dni', align: 'left' },
-      { name: 'iva condition', label: 'Condición IVA', field: 'condicion_iva', align: 'left' },
-      { name: 'address', label: 'Dirección', field: 'direccion', align: 'left' },
-      { name: 'actions', label: 'Acciones', align: 'left' }
-    ];
-
     onMounted(async () => {
       await loadClients();
     });
 
     const onEdit = (client) => {
-      isEdit.value=true
+      isEdit.value = true;
       selectedClient.value = clients.value?.find(c => c.id === client.id); 
       openModal.value = true; 
     };
@@ -70,14 +65,14 @@ export default {
     const onAddInvoice = (client) => {
       openModalInvoice.value = true;
       selectedClient.value = clients.value?.find(c => c.id === client.id); 
-    }
+    };
 
     const onDelete = async (client) => {
       try {
         await deleteClient(client.id);
         const index = clients.value?.findIndex(item => item.id === client.id);
         if (index > -1) {
-          clients.splice(index, 1);
+          clients.value.splice(index, 1);
         }
       } catch (error) {
         console.error('Error deleting client:', error);
@@ -89,7 +84,18 @@ export default {
       selectedClient.value = null;
     };
 
-    return { clients, columns, onEdit, onDelete, openModal, selectedClient, openModalInvoice, closeModal, isEdit, onAddInvoice };
-  }
-}
+    return { 
+      clients, 
+      onEdit, 
+      onDelete, 
+      openModal, 
+      selectedClient, 
+      openModalInvoice, 
+      closeModal, 
+      isEdit, 
+      onAddInvoice,
+      clientStore
+    };
+  },
+};
 </script>
