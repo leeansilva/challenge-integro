@@ -1,5 +1,31 @@
-# Vue 3 + Vite
+# Proyecto Vue.js
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Requisitos
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+- Node.js (versión recomendada: 14.x o superior)
+- npm o yarn (gestores de paquetes)
+
+## Instalación
+
+1. Clona el repositorio:
+
+   ```bash
+   git clone https://github.com/usuario/challenge-integro.git
+   cd challenge-integro/frontend
+Instala las dependencias:
+
+Usando npm:
+
+npm install
+O usando yarn:
+
+yarn install
+Inicia el servidor de desarrollo:
+
+Usando npm:
+
+npm run serve
+O usando yarn:
+
+yarn serve
+El proyecto debería estar disponible en http://localhost:5173.
