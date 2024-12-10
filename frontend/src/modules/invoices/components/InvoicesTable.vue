@@ -11,8 +11,8 @@
   </template>
   
   <script>
-  import { ref, onMounted, computed } from 'vue';
-  import { useFactura } from '../../../composables/useFactura';
+import { ref, onMounted, computed } from 'vue';
+import { useFactura } from '../../../composables/useFactura';
 import { useFacturaStore } from '../../../stores/facturaStore';
   
   export default {

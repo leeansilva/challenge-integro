@@ -27,7 +27,7 @@ class FacturaController extends Controller
     
         try {
             $request->validate([
-                'nro_factura' => 'required|unique:faturas',
+                'nro_factura' => 'required|unique:facturas',
                 'importe' => 'required|numeric|min:0',
                 'id_cliente' => 'required|exists:clientes,id',
             ], $messages);
@@ -80,7 +80,7 @@ class FacturaController extends Controller
             ];
     
             $request->validate([
-                'nro_factura' => 'required|unique:faturas,nro_factura,' . $id,
+                'nro_factura' => 'required|unique:facturas,nro_factura,' . $id,
                 'importe' => 'required|numeric|min:0',
                 'id_cliente' => 'required|exists:clientes,id',
             ], $messages);

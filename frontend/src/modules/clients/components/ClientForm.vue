@@ -36,7 +36,7 @@ export default {
   props: {
     open: Boolean,
     client: Object,
-    isEdit: Boolean
+    isEdit: Boolean,
   },
   emits: ['close'],
   setup(props, { emit }) {

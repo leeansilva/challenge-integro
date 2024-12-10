@@ -7,6 +7,7 @@
     <template v-slot:body-cell-actions="props">
       <q-btn flat color="negative" icon="delete" @click="onDelete(props.row)" />
       <q-btn flat color="primary" icon="edit" @click="onEdit(props.row)" />
+      <q-btn flat color="primary" icon="add" @click="onAddInvoice(props.row)" />
     </template>
   </q-table>
 
@@ -14,7 +15,12 @@
     :open="openModal" 
     :client="selectedClient || null" 
     @close="closeModal"
-    :isEdit=true
+    :isEdit="isEdit"
+  />
+  <InvoiceForm 
+    :open="openModalInvoice" 
+    :clientId="selectedClient?.id" 
+    @close="openModalInvoice = false" 
   />
 </template>
 
@@ -24,12 +30,14 @@ import { ref, onMounted, computed } from 'vue'
 import ClientForm from './ClientForm.vue'  
 import { useClientStore } from '../../../stores/clientStore';
 import { useClient } from '../../../composables/useClient';
+import InvoiceForm from '../../invoices/components/InvoiceForm.vue';
 
 
 
 export default {
   components: {
-    ClientForm
+    ClientForm,
+    InvoiceForm
   },
   setup() {
     const { loadClients, deleteClient } = useClient();
@@ -37,19 +45,9 @@ export default {
     const clients = computed(() => clientStore.clients);
 
     const openModal = ref(false); 
+    const openModalInvoice = ref(false); 
     const selectedClient = ref(null); 
-
-    onMounted(async () => {
-      await loadClients();
-    });
-
-    console.log(clients, "proxy array asctual");
-
-
-    const onEdit = (client) => {
-      selectedClient.value = clients.value?.find(c => c.id === client.id); 
-      openModal.value = true; 
-    };
+    const isEdit = ref(false);
 
     const columns = [
       { name: 'name', label: 'Nombre', field: 'nombre', align: 'left' },
@@ -58,6 +56,21 @@ export default {
       { name: 'address', label: 'Dirección', field: 'direccion', align: 'left' },
       { name: 'actions', label: 'Acciones', align: 'left' }
     ];
+
+    onMounted(async () => {
+      await loadClients();
+    });
+
+    const onEdit = (client) => {
+      isEdit.value=true
+      selectedClient.value = clients.value?.find(c => c.id === client.id); 
+      openModal.value = true; 
+    };
+
+    const onAddInvoice = (client) => {
+      openModalInvoice.value = true;
+      selectedClient.value = clients.value?.find(c => c.id === client.id); 
+    }
 
     const onDelete = async (client) => {
       try {
@@ -76,7 +89,7 @@ export default {
       selectedClient.value = null;
     };
 
-    return { clients, columns, onEdit, onDelete, openModal, selectedClient, closeModal };
+    return { clients, columns, onEdit, onDelete, openModal, selectedClient, openModalInvoice, closeModal, isEdit, onAddInvoice };
   }
 }
 </script>

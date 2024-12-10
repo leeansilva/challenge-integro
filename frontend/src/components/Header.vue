@@ -3,7 +3,13 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>{{ title }}</q-toolbar-title>
-        <q-btn flat @click="$emit('openForm')" label="Agregar Cliente" icon="add" />
+        <q-btn 
+          v-if="buttonTitle" 
+          flat 
+          @click="$emit('openForm')" 
+          :label="buttonTitle" 
+          icon="add" 
+        />
       </q-toolbar>
     </q-header>
   </q-layout>
@@ -14,6 +20,9 @@ defineProps({
   title: {
     type: String,
     required: true,
+  },
+  buttonTitle: {
+    type: String,
   }
 });
 </script>
