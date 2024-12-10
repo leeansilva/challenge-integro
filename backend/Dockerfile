@@ -12,8 +12,6 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-COPY ./nginx/laravel.conf /etc/nginx/sites-available/default
-
 EXPOSE 80
 
-CMD service php8.2-fpm start && nginx -g 'daemon off;'
+CMD php artisan serve --host=0.0.0.0 --port=80
