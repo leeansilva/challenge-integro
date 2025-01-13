@@ -17,6 +17,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \App\Http\Middleware\CorsMiddleware::class,
     ];
 
     /**
